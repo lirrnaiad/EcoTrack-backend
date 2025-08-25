@@ -98,7 +98,7 @@ async def analyze(data: AnalyzeRequest):
                     - All reasoning must be grounded in actual text from the source."""
 
         response = client.chat.completions.create(
-            model='gpt-5-2025-08-07',
+            model='gpt-5-mini-2025-08-07',
             messages=[
                 {
                     "role": "system",
