@@ -107,7 +107,7 @@ Constraints:
 - Keep total sources between 4–6.
 - All reasoning must be grounded in actual text from the source."""
 
-        response = client.chat.completions.create(
+        response = client.responses.create(
             model="o4-mini-deep-research",
             input=input_text,
             background=True,
@@ -116,7 +116,7 @@ Constraints:
             ],
         )
 
-        analysis_text = response.choices[0].message.content
+        analysis_text = response.output_text
 
         # Handle if the model wraps JSON in markdown
         if analysis_text.strip().startswith("```json"):
