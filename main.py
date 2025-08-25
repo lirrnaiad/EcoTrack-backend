@@ -43,8 +43,6 @@ async def analyze(data: AnalyzeRequest):
 
                     Your tasks:
                     1. Identify 1-5 recent, real, relevant sources about this company (news, reports, announcements).
-                       - Each must have: title, URL, publisher, publish_date, and a short summary.
-                       - Skip duplicates or irrelevant results.
                     2. For each source, decide which ESG categories (Environmental, Social, Governance) it informs.
                     3. For each relevant category, assign a score from 0–100 and provide one-sentence reasoning tied directly to the text.
                     4. Aggregate the source-level contributions into final ESG scores (E, S, G), balancing credibility and recency.
@@ -105,14 +103,9 @@ async def analyze(data: AnalyzeRequest):
                     "content": """You are EcoTrack, an AI assistant built for BPI to evaluate SMEs on ESG (Environmental, Social, and Governance).
 
                     You must only use real, verifiable sources. Never invent or fabricate URLs, titles, or publishers.
-                    If no source is found, clearly say "insufficient evidence."
 
                     Rules:
                     - Cite only from valid URLs that can be retrieved. Do not generate imaginary links.
-                    - If a source is not credible (e.g., anonymous blog, broken link), omit it.
-                    - Abstain when evidence is insufficient; do not guess.
-                    - Each ESG score must be traceable to specific sources.
-                    - Prefer recent sources (within last 36 months) and credible domains (news, gov, NGO, reputable business media).
                     - Keep tone professional, concise, and neutral.
                     - Output strictly in JSON (no extra commentary)."""
                 },
