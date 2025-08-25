@@ -76,7 +76,7 @@ async def analyze(data: AnalyzeRequest):
                           "publisher": "Publisher Name",
                           "published_date": "YYYY-MM-DD",
                           "summary": "Brief article summary",
-                          "relevance": ["environmental", "social"],
+                          "relevance": ["environmental", "social"],Revise prompt
                           "contributions": {{
                             "environmental": {{
                               "score": 70,
@@ -98,7 +98,7 @@ async def analyze(data: AnalyzeRequest):
                     - All reasoning must be grounded in actual text from the source."""
 
         response = client.chat.completions.create(
-            model='gpt-5-mini-2025-08-07',
+            model='gpt-5-2025-08-07',
             messages=[
                 {
                     "role": "system",
