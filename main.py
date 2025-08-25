@@ -42,7 +42,7 @@ async def analyze(data: AnalyzeRequest):
                     Business type: {data.business_type or 'Unknown'}
 
                     Your tasks:
-                    1. Identify 1-5 recent, real, relevant sources about this company (news, reports, announcements).
+                    1. Identify 1-5 relevant sources about this company (news, reports, announcements).
                     2. For each source, decide which ESG categories (Environmental, Social, Governance) it informs.
                     3. For each relevant category, assign a score from 0–100 and provide one-sentence reasoning tied directly to the text.
                     4. Aggregate the source-level contributions into final ESG scores (E, S, G), balancing credibility and recency.
@@ -74,7 +74,7 @@ async def analyze(data: AnalyzeRequest):
                           "publisher": "Publisher Name",
                           "published_date": "YYYY-MM-DD",
                           "summary": "Brief article summary",
-                          "relevance": ["environmental", "social"],Revise prompt
+                          "relevance": ["environmental", "social"],
                           "contributions": {{
                             "environmental": {{
                               "score": 70,
@@ -90,19 +90,16 @@ async def analyze(data: AnalyzeRequest):
                     }}
 
                     Constraints:
-                    - If no valid sources are found for a pillar, leave that pillar's score 0 and description "Insufficient evidence."
                     - Do not include categories not mentioned in the source.
-                    - Keep total sources between 4–6.
+                    - Keep total sources between 1-5.
                     - All reasoning must be grounded in actual text from the source."""
 
         response = client.chat.completions.create(
-            model='gpt-5-mini',
+            model='gpt-5-mini-2025-08-07',
             messages=[
                 {
                     "role": "system",
                     "content": """You are EcoTrack, an AI assistant built for BPI to evaluate SMEs on ESG (Environmental, Social, and Governance).
-
-                    You must only use real, verifiable sources. Never invent or fabricate URLs, titles, or publishers.
 
                     Rules:
                     - Cite only from valid URLs that can be retrieved. Do not generate imaginary links.
