@@ -34,7 +34,21 @@ async def health():
 @app.post("/analyze")
 async def analyze(data: AnalyzeRequest):
     try:
-        user_prompt = f"""The company is: {data.company_name}
+        input_text = f"""You are EcoTrack, an AI assistant built for BPI to evaluate SMEs on ESG (Environmental, Social, and Governance).
+
+You must only use real, verifiable sources. Never invent or fabricate URLs, titles, or publishers.
+If no source is found, clearly say "insufficient evidence."
+
+Rules:
+- Cite only from valid URLs that can be retrieved. Do not generate imaginary links.
+- If a source is not credible (e.g., anonymous blog, broken link), omit it.
+- Abstain when evidence is insufficient; do not guess.
+- Each ESG score must be traceable to specific sources.
+- Prefer recent sources (within last 36 months) and credible domains (news, gov, NGO, reputable business media).
+- Keep tone professional, concise, and neutral.
+- Output strictly in JSON (no extra commentary).
+
+The company is: {data.company_name}
 Business type: {data.business_type or 'Unknown'}
 
 Your tasks:
@@ -94,28 +108,11 @@ Constraints:
 - All reasoning must be grounded in actual text from the source."""
 
         response = client.chat.completions.create(
-            model="o4-mini-deep-research-2025-06-26",
-            messages=[
-                {
-                    "role": "system",
-                    "content": """You are EcoTrack, an AI assistant built for BPI to evaluate SMEs on ESG (Environmental, Social, and Governance).
-
-You must only use real, verifiable sources. Never invent or fabricate URLs, titles, or publishers.
-If no source is found, clearly say "insufficient evidence."
-
-Rules:
-- Cite only from valid URLs that can be retrieved. Do not generate imaginary links.
-- If a source is not credible (e.g., anonymous blog, broken link), omit it.
-- Abstain when evidence is insufficient; do not guess.
-- Each ESG score must be traceable to specific sources.
-- Prefer recent sources (within last 36 months) and credible domains (news, gov, NGO, reputable business media).
-- Keep tone professional, concise, and neutral.
-- Output strictly in JSON (no extra commentary)."""
-                },
-                {
-                    "role": "user",
-                    "content": user_prompt
-                }
+            model="o4-mini-deep-research",
+            input=input_text,
+            background=True,
+            tools=[
+                {"type": "web_search_preview"},
             ],
         )
 
