@@ -42,7 +42,7 @@ async def analyze(data: AnalyzeRequest):
                     Business type: {data.business_type or 'Unknown'}
 
                     Your tasks:
-                    1. Identify 4–6 recent, real, relevant sources about this company (news, reports, announcements).
+                    1. Identify 1-5 recent, real, relevant sources about this company (news, reports, announcements).
                        - Each must have: title, URL, publisher, publish_date, and a short summary.
                        - Skip duplicates or irrelevant results.
                     2. For each source, decide which ESG categories (Environmental, Social, Governance) it informs.
